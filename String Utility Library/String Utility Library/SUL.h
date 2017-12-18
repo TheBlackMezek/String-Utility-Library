@@ -13,10 +13,13 @@ namespace sul
 
 	void toUpperCase(std::string& s);
 	void toLowerCase(std::string& s);
+
+
 	
 
 	namespace test
 	{
+		void runAllTests();
 		void helloWorld();
 		void printAlphabet();
 		void caseChanges();

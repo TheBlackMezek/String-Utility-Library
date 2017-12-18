@@ -61,6 +61,13 @@ void sul::toLowerCase(std::string& s)
 
 
 
+void sul::test::runAllTests()
+{
+	helloWorld();
+	printAlphabet();
+	caseChanges();
+}
+
 void sul::test::helloWorld()
 {
 	std::cout << "Hello world!" << std::endl;
