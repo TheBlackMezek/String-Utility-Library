@@ -15,6 +15,7 @@ namespace sul
 	void toLowerCase(std::string& s);
 
 	std::string getWord(std::string s, size_t idx);
+	void eraseWord(std::string& s, size_t idx);
 
 
 	
@@ -26,6 +27,7 @@ namespace sul
 		void printAlphabet();
 		void caseChanges();
 		void testGetWord();
+		void testEraseWord();
 	}
 
 }

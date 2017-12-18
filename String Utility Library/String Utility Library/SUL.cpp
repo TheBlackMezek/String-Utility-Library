@@ -73,6 +73,25 @@ std::string sul::getWord(std::string s, size_t idx)
 	return ret;
 }
 
+void sul::eraseWord(std::string& s, size_t idx)
+{
+	size_t startidx = 0;
+	size_t spaceidx = s.find(' ');
+
+	while (idx > 0 && spaceidx != s.npos)
+	{
+		startidx = spaceidx + 1;
+		spaceidx = s.find(' ', startidx);
+
+		--idx;
+	}
+
+	if (idx == 0)
+	{
+		s.erase(startidx, spaceidx - startidx + 1);
+	}
+}
+
 
 
 
@@ -89,6 +108,7 @@ void sul::test::runAllTests()
 	printAlphabet();
 	caseChanges();
 	testGetWord();
+	testEraseWord();
 }
 
 void sul::test::helloWorld()
@@ -135,6 +155,28 @@ void sul::test::testGetWord()
 	std::cout << "Word 4:'" << getWord(base, 4) << "'" << std::endl;
 	std::cout << "Word 5:'" << getWord(base, 5) << "'" << std::endl;
 	std::cout << "Word 10:'" << getWord(base, 10) << "'" << std::endl;
+
+	std::cin.get();
+}
+
+void sul::test::testEraseWord()
+{
+	std::string base = "It's just an example sentence.";
+	std::string zero(base);
+	std::string three(base);
+	std::string four(base);
+	std::string ten(base);
+
+	eraseWord(zero, 0);
+	eraseWord(three, 3);
+	eraseWord(four, 4);
+	eraseWord(ten, 10);
+
+	std::cout << "Base string:" << base << std::endl;
+	std::cout << "Erase 0:'" << zero << "'" << std::endl;
+	std::cout << "Erase 3:'" << three << "'" << std::endl;
+	std::cout << "Erase 4:'" << four << "'" << std::endl;
+	std::cout << "Erase 10:'" << ten << "'" << std::endl;
 
 	std::cin.get();
 }
