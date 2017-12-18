@@ -7,7 +7,8 @@
 int main()
 {
 
+	sul::test::caseChanges();
 	sul::test::printAlphabet();
 
-	sul::test::testPrint();
+	sul::test::helloWorld();
 }

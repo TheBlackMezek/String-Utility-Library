@@ -16,7 +16,52 @@ const char sul::upperc[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K',
 
 
 
-void sul::test::testPrint()
+
+
+
+
+
+void sul::toUpperCase(std::string& s)
+{
+	for (int i = 0; i < s.size(); ++i)
+	{
+		for (int n = 0; n < alphabetLength; ++n)
+		{
+			if (s[i] == lowerc[n])
+			{
+				s[i] = upperc[n];
+				break;
+			}
+		}
+	}
+}
+
+void sul::toLowerCase(std::string& s)
+{
+	for (int i = 0; i < s.size(); ++i)
+	{
+		for (int n = 0; n < alphabetLength; ++n)
+		{
+			if (s[i] == upperc[n])
+			{
+				s[i] = lowerc[n];
+				break;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+void sul::test::helloWorld()
 {
 	std::cout << "Hello world!" << std::endl;
 
@@ -29,6 +74,21 @@ void sul::test::printAlphabet()
 	{
 		std::cout << sul::lowerc[i] << ' ' << sul::upperc[i] << std::endl;
 	}
+
+	std::cin.get();
+}
+
+void sul::test::caseChanges()
+{
+	std::string base = "Example String.";
+	std::string ubase(base);
+	std::string lbase(base);
+	toUpperCase(ubase);
+	toLowerCase(lbase);
+
+	std::cout << "Base string:" << base << std::endl;
+	std::cout << "toUpperCase(base):" << ubase << std::endl;
+	std::cout << "toLowerCase(base):" << lbase << std::endl;
 
 	std::cin.get();
 }
