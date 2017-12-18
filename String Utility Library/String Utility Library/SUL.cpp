@@ -51,6 +51,28 @@ void sul::toLowerCase(std::string& s)
 	}
 }
 
+std::string sul::getWord(std::string s, size_t idx)
+{
+	std::string ret = "";
+	size_t startidx = 0;
+	size_t spaceidx = s.find(' ');
+
+	while (idx > 0 && spaceidx != s.npos)
+	{
+		startidx = spaceidx + 1;
+		spaceidx = s.find(' ', startidx);
+
+		--idx;
+	}
+
+	if (idx == 0)
+	{
+		ret = s.substr(startidx, spaceidx - startidx);
+	}
+
+	return ret;
+}
+
 
 
 
@@ -66,6 +88,7 @@ void sul::test::runAllTests()
 	helloWorld();
 	printAlphabet();
 	caseChanges();
+	testGetWord();
 }
 
 void sul::test::helloWorld()
@@ -100,3 +123,18 @@ void sul::test::caseChanges()
 	std::cin.get();
 }
 
+void sul::test::testGetWord()
+{
+	std::string base = "It's just an example sentence.";
+
+	std::cout << "Base string:" << base << std::endl;
+	std::cout << "Word 0:'" << getWord(base, 0) << "'" << std::endl;
+	std::cout << "Word 1:'" << getWord(base, 1) << "'" << std::endl;
+	std::cout << "Word 2:'" << getWord(base, 2) << "'" << std::endl;
+	std::cout << "Word 3:'" << getWord(base, 3) << "'" << std::endl;
+	std::cout << "Word 4:'" << getWord(base, 4) << "'" << std::endl;
+	std::cout << "Word 5:'" << getWord(base, 5) << "'" << std::endl;
+	std::cout << "Word 10:'" << getWord(base, 10) << "'" << std::endl;
+
+	std::cin.get();
+}
