@@ -1,0 +1,10 @@
+start
+A brightly lit white room with soothing electronic music.
+laboratory
+lab
+CONNECTIONS_END
+lab
+A laboratory.
+room
+start
+CONNECTIONS_END

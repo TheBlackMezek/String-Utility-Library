@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 #include "SUL.h"
 
@@ -25,6 +26,9 @@ struct Location
 
 Location* findLoc(std::string name);
 
+void saveLocs();
+void loadLocs();
+
 
 
 
@@ -37,10 +41,13 @@ int main()
 	Location* loc;
 
 
-	Location baseloc;
-	baseloc.name = "start";
-	baseloc.desc = "A brightly lit white room with soothing electronic music.";
-	locs.push_back(baseloc);
+	//Location baseloc;
+	//baseloc.name = "start";
+	//baseloc.desc = "A brightly lit white room with soothing electronic music.";
+	//locs.push_back(baseloc);
+	//loc = &locs[0];
+
+	loadLocs();
 	loc = &locs[0];
 
 
@@ -51,6 +58,7 @@ int main()
 		std::getline(std::cin, line);
 		std::cout << std::endl;
 
+		//Print description
 		if (line == "look")
 		{
 			std::cout << loc->desc << std::endl;
@@ -134,6 +142,8 @@ int main()
 		std::cout << std::endl;
 	}
 
+	saveLocs();
+
 }
 
 
@@ -150,4 +160,83 @@ Location* findLoc(std::string name)
 	}
 
 	return nullptr;
+}
+
+void saveLocs()
+{
+	std::ofstream file;
+	file.open("WorldSave.txt");
+
+	for (int i = 0; i < locs.size(); ++i)
+	{
+		file << locs[i].name << std::endl;
+		file << locs[i].desc << std::endl;
+		for (int n = 0; n < locs[i].connections.size(); ++n)
+		{
+			file << locs[i].connections[n].command << std::endl;
+			file << locs[i].connections[n].destination->name << std::endl;
+		}
+		file << "CONNECTIONS_END" << std::endl;
+	}
+
+	file.close();
+}
+
+void loadLocs()
+{
+	std::ifstream file;
+	file.open("WorldSave.txt");
+
+	//load all locations and connections from file
+	std::string line;
+	while (std::getline(file, line))
+	{
+		Location l;
+		l.name = line;
+
+		std::getline(file, line);
+		l.desc = line;
+
+		std::getline(file, line);
+		while (line != "CONNECTIONS_END")
+		{
+			LocationConnection c;
+			c.command = line;
+
+			std::getline(file, line);
+			c.command = c.command + ' ' + line;
+
+			l.connections.push_back(c);
+
+			std::getline(file, line);
+		}
+
+		locs.push_back(l);
+	}
+
+	file.close();
+
+
+
+	//set all connection destinations
+	for (int i = 0; i < locs.size(); ++i)
+	{
+		for (int n = 0; n < locs[i].connections.size(); ++n)
+		{
+			std::string& command = locs[i].connections[n].command;
+			std::string conname = sul::getWord(command, 1);
+
+			for (int q = 0; q < locs.size(); ++q)
+			{
+				if (locs[q].name == conname)
+				{
+					command.erase(command.find(' '), command.npos);
+					locs[i].connections[n].destination = &locs[q];
+					break;
+				}
+			}
+
+		}
+	}
+
 }
